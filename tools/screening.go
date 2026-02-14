@@ -125,6 +125,11 @@ func (h *Handler) ScreenCandidates(
 	input ScreenCandidatesInput,
 ) (*mcp.CallToolResult, ScreenCandidatesOutput, error) {
 
+	if input.JobID == "" {
+		return nil, ScreenCandidatesOutput{},
+			fmt.Errorf("jobId is required")
+	}
+
 	status := input.Status
 	if status == "" {
 		status = "Active"
@@ -167,11 +172,41 @@ func (h *Handler) ScreenCandidates(
 
 			// Marshal/unmarshal to get a generic map
 			// for text extraction.
-			raw, _ := json.Marshal(enriched)
-			_ = json.Unmarshal(raw, &appData)
+			raw, err := json.Marshal(enriched)
+			if err != nil {
+				return nil, ScreenCandidatesOutput{},
+					fmt.Errorf(
+						"marshal app %s: %w",
+						app.ID, err,
+					)
+			}
+			if err := json.Unmarshal(
+				raw, &appData,
+			); err != nil {
+				return nil, ScreenCandidatesOutput{},
+					fmt.Errorf(
+						"unmarshal app %s: %w",
+						app.ID, err,
+					)
+			}
 		} else {
-			raw, _ := json.Marshal(app)
-			_ = json.Unmarshal(raw, &appData)
+			raw, err := json.Marshal(app)
+			if err != nil {
+				return nil, ScreenCandidatesOutput{},
+					fmt.Errorf(
+						"marshal app %s: %w",
+						app.ID, err,
+					)
+			}
+			if err := json.Unmarshal(
+				raw, &appData,
+			); err != nil {
+				return nil, ScreenCandidatesOutput{},
+					fmt.Errorf(
+						"unmarshal app %s: %w",
+						app.ID, err,
+					)
+			}
 		}
 
 		text := ExtractText(appData)

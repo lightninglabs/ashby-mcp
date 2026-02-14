@@ -113,8 +113,12 @@ func Paginate[T any](
 
 		all = append(all, page.Items...)
 
-		// Check termination conditions.
-		if !page.MoreDataAvailable || page.NextCursor == "" {
+		// Check termination conditions. The cursor equality
+		// guard prevents infinite loops if the API returns
+		// MoreDataAvailable=true with a stale cursor.
+		if !page.MoreDataAvailable || page.NextCursor == "" ||
+			page.NextCursor == cursor {
+
 			break
 		}
 
