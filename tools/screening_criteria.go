@@ -225,17 +225,19 @@ func ScoreCandidate(text string) ScoreResult {
 	for key, crit := range criteria {
 		var matched []string
 		for _, kw := range crit.Keywords {
-			if strings.Contains(
-				textLower, strings.ToLower(kw),
-			) {
+			// Keywords are already lowercase in the
+			// criteria definitions.
+			if strings.Contains(textLower, kw) {
 				matched = append(matched, kw)
 			}
 		}
 
-		// Score: min(matched/3, 1.0) * weight. Three or
-		// more matches in a category earns the full weight.
+		// Score: min(matched/threshold, 1.0) * weight.
+		// Three or more matches in a category earns the
+		// full weight.
 		raw := math.Min(
-			float64(len(matched))/3.0, 1.0,
+			float64(len(matched))/matchesForFullScore,
+			1.0,
 		)
 		score := math.Round(
 			raw*crit.Weight*100,
@@ -268,16 +270,34 @@ func ScoreCandidate(text string) ScoreResult {
 	}
 }
 
+const (
+	// matchesForFullScore is the number of keyword matches
+	// needed in a category to earn the full category weight.
+	matchesForFullScore = 3.0
+
+	// strongTierThreshold is the minimum percentage score for
+	// the "strong" tier.
+	strongTierThreshold = 60.0
+
+	// moderateTierThreshold is the minimum percentage score
+	// for the "moderate" tier.
+	moderateTierThreshold = 35.0
+
+	// weakTierThreshold is the minimum percentage score for
+	// the "weak" tier.
+	weakTierThreshold = 15.0
+)
+
 // ClassifyTier returns a tier classification based on the
 // percentage score: strong (>=60), moderate (>=35), weak (>=15),
 // or no_signal (<15).
 func ClassifyTier(pct float64) string {
 	switch {
-	case pct >= 60:
+	case pct >= strongTierThreshold:
 		return "strong"
-	case pct >= 35:
+	case pct >= moderateTierThreshold:
 		return "moderate"
-	case pct >= 15:
+	case pct >= weakTierThreshold:
 		return "weak"
 	default:
 		return "no_signal"

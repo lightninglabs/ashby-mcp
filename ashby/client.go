@@ -63,7 +63,8 @@ func NewClientFromEnv() (*Client, error) {
 
 	if key == "" {
 		return nil, fmt.Errorf(
-			"ASHBY_API_KEY environment variable not set",
+			"ASHBY_API_KEY (or ASHBY_KEY) environment " +
+				"variable not set",
 		)
 	}
 
