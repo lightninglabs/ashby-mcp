@@ -1,6 +1,9 @@
 # Substrate internal files
 .claude/.substrate-plan-context
 
+# Go binary
+ashby-mcp
+
 # Python
 __pycache__/
 *.pyc
