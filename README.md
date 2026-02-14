@@ -14,7 +14,7 @@ MCP-compatible client.
 
 ### Prerequisites
 
-- Go 1.21+
+- Go 1.26+
 - An Ashby API key with `candidatesRead`, `jobsRead`, and
   `candidatesWrite` permissions
   - Generate one at https://app.ashbyhq.com/admin/api/keys
