@@ -1,0 +1,10 @@
+# Substrate internal files
+.claude/.substrate-plan-context
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment
+.env
