@@ -106,18 +106,18 @@ type Application struct {
 	CustomFields []CustomField `json:"customFields,omitempty"`
 
 	// ApplicationFormSubmissions contains form response data
-	// when expanded. Uses json.RawMessage because the schema
-	// varies by form.
-	ApplicationFormSubmissions []json.RawMessage `json:"applicationFormSubmissions,omitempty"`
+	// when expanded. Uses any because the schema varies by
+	// form and the MCP SDK must not constrain item types.
+	ApplicationFormSubmissions []any `json:"applicationFormSubmissions,omitempty"`
 
 	// ResumeFileHandle holds resume metadata when expanded.
 	ResumeFileHandle *FileHandle `json:"resumeFileHandle,omitempty"`
 
 	// Openings contains expanded opening details.
-	Openings []json.RawMessage `json:"openings,omitempty"`
+	Openings []any `json:"openings,omitempty"`
 
 	// Referrals contains expanded referral details.
-	Referrals []json.RawMessage `json:"referrals,omitempty"`
+	Referrals []any `json:"referrals,omitempty"`
 
 	// HiringTeam lists the hiring team members.
 	HiringTeam []HiringTeamMember `json:"hiringTeam,omitempty"`
