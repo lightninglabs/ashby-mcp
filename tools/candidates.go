@@ -12,7 +12,7 @@ import (
 // list_candidates tool.
 type ListCandidatesInput struct {
 	// Limit caps the maximum number of results returned.
-	Limit int `json:"limit,omitempty" jsonschema:"description=Maximum number of results to return (default: 100)"`
+	Limit int `json:"limit,omitempty" jsonschema:"Maximum number of results to return (default: 100)"`
 }
 
 // ListCandidatesOutput contains the list_candidates results.
@@ -47,10 +47,10 @@ func (h *Handler) ListCandidates(
 // search_candidates tool.
 type SearchCandidatesInput struct {
 	// Email searches by email address.
-	Email string `json:"email,omitempty" jsonschema:"description=Search by email address"`
+	Email string `json:"email,omitempty" jsonschema:"Search by email address"`
 
 	// Name searches by candidate name.
-	Name string `json:"name,omitempty" jsonschema:"description=Search by candidate name"`
+	Name string `json:"name,omitempty" jsonschema:"Search by candidate name"`
 }
 
 // SearchCandidatesOutput contains the search_candidates
@@ -86,7 +86,7 @@ func (h *Handler) SearchCandidates(
 // get_candidate tool.
 type GetCandidateInput struct {
 	// CandidateID is the Ashby candidate ID to look up.
-	CandidateID string `json:"candidateId" jsonschema:"description=The Ashby candidate ID"`
+	CandidateID string `json:"candidateId" jsonschema:"The Ashby candidate ID"`
 }
 
 // GetCandidateOutput contains the get_candidate results.
@@ -115,13 +115,13 @@ func (h *Handler) GetCandidate(
 // create_candidate tool.
 type CreateCandidateInput struct {
 	// Name is the candidate's full name.
-	Name string `json:"name" jsonschema:"description=Candidate full name"`
+	Name string `json:"name" jsonschema:"Candidate full name"`
 
 	// Email is the candidate's email address.
-	Email string `json:"email" jsonschema:"description=Candidate email address"`
+	Email string `json:"email" jsonschema:"Candidate email address"`
 
 	// Phone is an optional phone number.
-	Phone string `json:"phone,omitempty" jsonschema:"description=Optional phone number"`
+	Phone string `json:"phone,omitempty" jsonschema:"Optional phone number"`
 }
 
 // CreateCandidateOutput contains the newly created candidate.

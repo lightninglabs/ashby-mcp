@@ -12,18 +12,18 @@ import (
 // list_applications tool.
 type ListApplicationsInput struct {
 	// JobID filters applications by job.
-	JobID string `json:"jobId,omitempty" jsonschema:"description=Filter by Ashby job ID"`
+	JobID string `json:"jobId,omitempty" jsonschema:"Filter by Ashby job ID"`
 
 	// Status filters by application status: Active, Hired,
 	// Archived, or Rejected.
-	Status string `json:"status,omitempty" jsonschema:"description=Application status filter: Active Hired Archived or Rejected"`
+	Status string `json:"status,omitempty" jsonschema:"Application status filter: Active Hired Archived or Rejected"`
 
 	// Limit caps the maximum number of results.
-	Limit int `json:"limit,omitempty" jsonschema:"description=Maximum number of results to return (default: 100)"`
+	Limit int `json:"limit,omitempty" jsonschema:"Maximum number of results to return (default: 100)"`
 
 	// Cursor is an opaque pagination token from a previous
 	// response.
-	Cursor string `json:"cursor,omitempty" jsonschema:"description=Pagination cursor from a previous response"`
+	Cursor string `json:"cursor,omitempty" jsonschema:"Pagination cursor from a previous response"`
 }
 
 // ListApplicationsOutput contains the list_applications
@@ -72,11 +72,11 @@ func (h *Handler) ListApplications(
 // get_application tool.
 type GetApplicationInput struct {
 	// ApplicationID is the Ashby application ID to look up.
-	ApplicationID string `json:"applicationId" jsonschema:"description=The Ashby application ID"`
+	ApplicationID string `json:"applicationId" jsonschema:"The Ashby application ID"`
 
 	// Expand controls which related data to include. Valid
 	// values: applicationFormSubmissions, openings, referrals.
-	Expand []string `json:"expand,omitempty" jsonschema:"description=Related data to include: applicationFormSubmissions openings referrals"`
+	Expand []string `json:"expand,omitempty" jsonschema:"Related data to include: applicationFormSubmissions openings referrals"`
 }
 
 // GetApplicationOutput contains the get_application results.
@@ -105,10 +105,10 @@ func (h *Handler) GetApplication(
 // the change_application_stage tool.
 type ChangeApplicationStageInput struct {
 	// ApplicationID is the application to move.
-	ApplicationID string `json:"applicationId" jsonschema:"description=The Ashby application ID to move"`
+	ApplicationID string `json:"applicationId" jsonschema:"The Ashby application ID to move"`
 
 	// InterviewStageID is the target interview stage.
-	InterviewStageID string `json:"interviewStageId" jsonschema:"description=The target interview stage ID"`
+	InterviewStageID string `json:"interviewStageId" jsonschema:"The target interview stage ID"`
 }
 
 // ChangeApplicationStageOutput confirms the stage change.
@@ -141,13 +141,13 @@ func (h *Handler) ChangeApplicationStage(
 type CreateApplicationInput struct {
 	// CandidateID is the candidate to create the application
 	// for.
-	CandidateID string `json:"candidateId" jsonschema:"description=The Ashby candidate ID"`
+	CandidateID string `json:"candidateId" jsonschema:"The Ashby candidate ID"`
 
 	// JobID is the job to apply to.
-	JobID string `json:"jobId" jsonschema:"description=The Ashby job ID"`
+	JobID string `json:"jobId" jsonschema:"The Ashby job ID"`
 
 	// Source is an optional source identifier.
-	Source string `json:"source,omitempty" jsonschema:"description=Optional source identifier (e.g. Referral)"`
+	Source string `json:"source,omitempty" jsonschema:"Optional source identifier (e.g. Referral)"`
 }
 
 // CreateApplicationOutput contains the newly created

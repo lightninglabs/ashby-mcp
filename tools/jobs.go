@@ -13,10 +13,10 @@ import (
 type ListJobsInput struct {
 	// Status filters jobs by their current status: Open,
 	// Closed, Archived, or Draft.
-	Status string `json:"status,omitempty" jsonschema:"description=Job status filter: Open Closed Archived or Draft"`
+	Status string `json:"status,omitempty" jsonschema:"Job status filter: Open Closed Archived or Draft"`
 
 	// Limit caps the maximum number of results returned.
-	Limit int `json:"limit,omitempty" jsonschema:"description=Maximum number of results to return (default: all)"`
+	Limit int `json:"limit,omitempty" jsonschema:"Maximum number of results to return (default: all)"`
 }
 
 // ListJobsOutput contains the list_jobs results.
@@ -51,7 +51,7 @@ func (h *Handler) ListJobs(
 // tool.
 type GetJobInput struct {
 	// JobID is the Ashby job ID to look up.
-	JobID string `json:"jobId" jsonschema:"description=The Ashby job ID"`
+	JobID string `json:"jobId" jsonschema:"The Ashby job ID"`
 }
 
 // GetJobOutput contains the get_job results.
@@ -78,10 +78,10 @@ func (h *Handler) GetJob(
 // search_jobs tool.
 type SearchJobsInput struct {
 	// Term is the search query string.
-	Term string `json:"term" jsonschema:"description=Search term to match against job titles"`
+	Term string `json:"term" jsonschema:"Search term to match against job titles"`
 
 	// Limit caps the maximum number of results returned.
-	Limit int `json:"limit,omitempty" jsonschema:"description=Maximum number of results to return"`
+	Limit int `json:"limit,omitempty" jsonschema:"Maximum number of results to return"`
 }
 
 // SearchJobsOutput contains the search_jobs results.

@@ -12,10 +12,10 @@ import (
 // create_candidate_note tool.
 type CreateCandidateNoteInput struct {
 	// CandidateID is the candidate to add a note to.
-	CandidateID string `json:"candidateId" jsonschema:"description=The Ashby candidate ID"`
+	CandidateID string `json:"candidateId" jsonschema:"The Ashby candidate ID"`
 
 	// Body is the HTML-formatted note content.
-	Body string `json:"body" jsonschema:"description=HTML-formatted note content"`
+	Body string `json:"body" jsonschema:"HTML-formatted note content"`
 }
 
 // CreateCandidateNoteOutput confirms the note was created.
@@ -47,7 +47,7 @@ func (h *Handler) CreateCandidateNote(
 // list_candidate_notes tool.
 type ListCandidateNotesInput struct {
 	// CandidateID is the candidate to list notes for.
-	CandidateID string `json:"candidateId" jsonschema:"description=The Ashby candidate ID"`
+	CandidateID string `json:"candidateId" jsonschema:"The Ashby candidate ID"`
 }
 
 // ListCandidateNotesOutput contains the list_candidate_notes

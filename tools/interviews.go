@@ -13,7 +13,7 @@ import (
 type ListInterviewStagesInput struct {
 	// InterviewPlanID is the interview plan to list stages
 	// for. This is typically the job's interviewPlanId field.
-	InterviewPlanID string `json:"interviewPlanId" jsonschema:"description=The interview plan ID (from job.interviewPlanId)"`
+	InterviewPlanID string `json:"interviewPlanId" jsonschema:"The interview plan ID (from job.interviewPlanId)"`
 }
 
 // ListInterviewStagesOutput contains the
@@ -50,7 +50,7 @@ func (h *Handler) ListInterviewStages(
 // list_interviews tool.
 type ListInterviewsInput struct {
 	// ApplicationID filters interviews by application.
-	ApplicationID string `json:"applicationId,omitempty" jsonschema:"description=Filter by Ashby application ID"`
+	ApplicationID string `json:"applicationId,omitempty" jsonschema:"Filter by Ashby application ID"`
 }
 
 // ListInterviewsOutput contains the list_interviews results.

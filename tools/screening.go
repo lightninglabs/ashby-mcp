@@ -16,22 +16,22 @@ import (
 // screen_candidates tool.
 type ScreenCandidatesInput struct {
 	// JobID is the Ashby job ID to screen candidates for.
-	JobID string `json:"jobId" jsonschema:"description=Ashby job ID to screen candidates for"`
+	JobID string `json:"jobId" jsonschema:"Ashby job ID to screen candidates for"`
 
 	// Status filters by application status (default: Active).
-	Status string `json:"status,omitempty" jsonschema:"description=Application status filter (default: Active)"`
+	Status string `json:"status,omitempty" jsonschema:"Application status filter (default: Active)"`
 
 	// Limit caps the number of applications to screen.
-	Limit int `json:"limit,omitempty" jsonschema:"description=Maximum applications to screen"`
+	Limit int `json:"limit,omitempty" jsonschema:"Maximum applications to screen"`
 
 	// MinTier filters results to this tier or above: strong,
 	// moderate, weak, no_signal.
-	MinTier string `json:"minTier,omitempty" jsonschema:"description=Minimum tier to include: strong moderate weak no_signal"`
+	MinTier string `json:"minTier,omitempty" jsonschema:"Minimum tier to include: strong moderate weak no_signal"`
 
 	// Enrich fetches expanded application details for better
 	// scoring accuracy. This is slower due to per-application
 	// API calls.
-	Enrich bool `json:"enrich,omitempty" jsonschema:"description=Fetch expanded details for better scoring (slower)"`
+	Enrich bool `json:"enrich,omitempty" jsonschema:"Fetch expanded details for better scoring (slower)"`
 }
 
 // ScreenedCandidate holds the screening result for a single

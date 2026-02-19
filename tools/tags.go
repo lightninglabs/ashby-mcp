@@ -42,10 +42,10 @@ func (h *Handler) ListTags(
 // add_candidate_tag tool.
 type AddCandidateTagInput struct {
 	// CandidateID is the candidate to tag.
-	CandidateID string `json:"candidateId" jsonschema:"description=The Ashby candidate ID"`
+	CandidateID string `json:"candidateId" jsonschema:"The Ashby candidate ID"`
 
 	// TagID is the tag to add.
-	TagID string `json:"tagId" jsonschema:"description=The Ashby tag ID"`
+	TagID string `json:"tagId" jsonschema:"The Ashby tag ID"`
 }
 
 // AddCandidateTagOutput confirms the tag was added.
