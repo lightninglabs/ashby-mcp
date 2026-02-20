@@ -163,6 +163,20 @@ func RegisterAll(s *mcp.Server, h *Handler) {
 	}, h.ListInterviews)
 
 	// =============================================================
+	// File tools.
+	// =============================================================
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "get_file_url",
+		Description: "Retrieve a pre-signed download URL " +
+			"for a candidate file (resume, cover " +
+			"letter) using its opaque handle string " +
+			"from a resumeFileHandle or fileHandles " +
+			"entry.",
+		Annotations: readOnly,
+	}, h.GetFileURL)
+
+	// =============================================================
 	// Analytics & screening tools.
 	// =============================================================
 

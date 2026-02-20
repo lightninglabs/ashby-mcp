@@ -164,9 +164,11 @@ All communication with Ashby uses their
 
 ## Limitations
 
-- **No resume content**: The Ashby API provides resume file handles but
-  not actual file content. Screening works on application form data,
-  custom fields, and metadata only.
+- **No inline resume content**: Resume text is not returned inline. Use
+  `get_file_url` with the `handle` from a `resumeFileHandle` or
+  `fileHandles` entry to obtain a pre-signed download URL, then fetch
+  the file separately. Screening works on application form data, custom
+  fields, and metadata only.
 - **"Go" keyword ambiguity**: The screener uses "golang", "goroutine",
   "gRPC" etc. as signals rather than bare "Go" which is too common in
   English.
