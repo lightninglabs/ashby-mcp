@@ -288,6 +288,117 @@ type Source struct {
 	Title string `json:"title"`
 }
 
+// ArchiveReason represents a reason for archiving an
+// application.
+type ArchiveReason struct {
+	// ID is the unique identifier.
+	ID string `json:"id"`
+
+	// Text is the display label for the archive reason.
+	Text string `json:"text"`
+}
+
+// User represents an Ashby team member.
+type User struct {
+	// ID is the unique identifier.
+	ID string `json:"id"`
+
+	// FirstName is the user's first name.
+	FirstName string `json:"firstName,omitempty"`
+
+	// LastName is the user's last name.
+	LastName string `json:"lastName,omitempty"`
+
+	// Name is the user's full display name.
+	Name string `json:"name,omitempty"`
+
+	// Email is the user's email address.
+	Email string `json:"email,omitempty"`
+
+	// Role is the user's role in Ashby.
+	Role string `json:"role,omitempty"`
+
+	// IsEnabled indicates whether the user account is active.
+	IsEnabled bool `json:"isEnabled,omitempty"`
+}
+
+// JobPosting represents a public-facing job posting.
+type JobPosting struct {
+	// ID is the unique identifier.
+	ID string `json:"id"`
+
+	// Title is the posting title.
+	Title string `json:"title"`
+
+	// Status is the posting state (e.g. "Published",
+	// "Unpublished", "Closed").
+	Status string `json:"status,omitempty"`
+
+	// JobID references the internal job.
+	JobID string `json:"jobId,omitempty"`
+
+	// LocationIds lists the associated location IDs.
+	LocationIds []string `json:"locationIds,omitempty"`
+
+	// EmploymentType is the type of employment
+	// (e.g. "FullTime").
+	EmploymentType string `json:"employmentType,omitempty"`
+
+	// DescriptionHtml is the full posting description as HTML.
+	DescriptionHtml string `json:"descriptionHtml,omitempty"`
+
+	// DescriptionPlain is the plain-text posting description.
+	DescriptionPlain string `json:"descriptionPlain,omitempty"`
+
+	// PublishedDate is the ISO 8601 date first published.
+	PublishedDate string `json:"publishedDate,omitempty"`
+
+	// ExternalLink is the canonical URL for the posting.
+	ExternalLink string `json:"externalLink,omitempty"`
+}
+
+// Opening represents an approved headcount opening linked to a
+// job.
+type Opening struct {
+	// ID is the unique identifier.
+	ID string `json:"id"`
+
+	// OpeningState is the current state: Open, Closed, or
+	// Archived.
+	OpeningState string `json:"openingState,omitempty"`
+
+	// JobID references the associated job.
+	JobID string `json:"jobId,omitempty"`
+
+	// LocationID references the location for this opening.
+	LocationID string `json:"locationId,omitempty"`
+
+	// DepartmentID references the department.
+	DepartmentID string `json:"departmentId,omitempty"`
+
+	// TeamID references the team.
+	TeamID string `json:"teamId,omitempty"`
+
+	// HiringManagerUserID references the hiring manager.
+	HiringManagerUserID string `json:"hiringManagerUserId,omitempty"`
+
+	// TargetStartDate is the planned start date (ISO 8601).
+	TargetStartDate string `json:"targetStartDate,omitempty"`
+}
+
+// InterviewPlan represents a structured interview plan
+// attached to a job.
+type InterviewPlan struct {
+	// ID is the unique identifier.
+	ID string `json:"id"`
+
+	// Name is the display name of the interview plan.
+	Name string `json:"name,omitempty"`
+
+	// JobID references the job this plan belongs to.
+	JobID string `json:"jobId,omitempty"`
+}
+
 // CustomField holds a custom field value on an entity.
 type CustomField struct {
 	// ID is the unique field identifier.

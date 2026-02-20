@@ -92,3 +92,78 @@ func (c *Client) SearchJobs(
 
 	return jobs, nil
 }
+
+// SetJobStatus changes the status of a job. Valid values for
+// status are Open, Closed, and Archived.
+func (c *Client) SetJobStatus(
+	ctx context.Context, jobID, status string,
+) (*Job, error) {
+
+	var resp struct {
+		Success bool `json:"success"`
+		Results Job  `json:"results"`
+	}
+
+	if err := c.Call(ctx, "job.setStatus", map[string]any{
+		"jobId":  jobID,
+		"status": status,
+	}, &resp); err != nil {
+		return nil, err
+	}
+
+	return &resp.Results, nil
+}
+
+// UpdateJobOpts holds optional fields that may be updated on a
+// job record.
+type UpdateJobOpts struct {
+	// Title is the job's display title.
+	Title string
+
+	// DepartmentID references the department for this job.
+	DepartmentID string
+
+	// LocationIds lists the associated location IDs.
+	LocationIds []string
+
+	// EmploymentType is the type of employment
+	// (e.g. "FullTime").
+	EmploymentType string
+}
+
+// UpdateJob updates mutable fields on an existing job. Only
+// fields with non-zero values are sent.
+func (c *Client) UpdateJob(
+	ctx context.Context, jobID string, opts UpdateJobOpts,
+) (*Job, error) {
+
+	params := map[string]any{
+		"jobId": jobID,
+	}
+
+	if opts.Title != "" {
+		params["title"] = opts.Title
+	}
+	if opts.DepartmentID != "" {
+		params["departmentId"] = opts.DepartmentID
+	}
+	if len(opts.LocationIds) > 0 {
+		params["locationIds"] = opts.LocationIds
+	}
+	if opts.EmploymentType != "" {
+		params["employmentType"] = opts.EmploymentType
+	}
+
+	var resp struct {
+		Success bool `json:"success"`
+		Results Job  `json:"results"`
+	}
+
+	if err := c.Call(
+		ctx, "job.update", params, &resp,
+	); err != nil {
+		return nil, err
+	}
+
+	return &resp.Results, nil
+}

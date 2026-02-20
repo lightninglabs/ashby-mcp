@@ -15,6 +15,36 @@ func (c *Client) ListInterviewStages(
 	)
 }
 
+// GetInterviewStage returns details for a single interview
+// stage by ID.
+func (c *Client) GetInterviewStage(
+	ctx context.Context, stageID string,
+) (*InterviewStage, error) {
+
+	var resp struct {
+		Success bool           `json:"success"`
+		Results InterviewStage `json:"results"`
+	}
+
+	if err := c.Call(ctx, "interviewStage.info", map[string]any{
+		"interviewStageId": stageID,
+	}, &resp); err != nil {
+		return nil, err
+	}
+
+	return &resp.Results, nil
+}
+
+// ListInterviewPlans returns all interview plans.
+func (c *Client) ListInterviewPlans(
+	ctx context.Context,
+) ([]InterviewPlan, error) {
+
+	return Paginate[InterviewPlan](
+		ctx, c, "interviewPlan.list", nil, 0,
+	)
+}
+
 // ListInterviews returns interviews filtered by application
 // ID.
 func (c *Client) ListInterviews(

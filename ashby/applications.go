@@ -140,6 +140,32 @@ func (c *Client) ChangeApplicationStage(
 	}, &resp)
 }
 
+// ChangeApplicationSource updates the source on an existing
+// application. Pass an empty sourceID to unset the source.
+func (c *Client) ChangeApplicationSource(
+	ctx context.Context, appID, sourceID string,
+) error {
+
+	params := map[string]any{
+		"applicationId": appID,
+	}
+
+	// The API accepts null to clear the source.
+	if sourceID != "" {
+		params["sourceId"] = sourceID
+	} else {
+		params["sourceId"] = nil
+	}
+
+	var resp struct {
+		Success bool `json:"success"`
+	}
+
+	return c.Call(
+		ctx, "application.changeSource", params, &resp,
+	)
+}
+
 // CreateApplication creates a new application linking a
 // candidate to a job. Source is optional.
 func (c *Client) CreateApplication(

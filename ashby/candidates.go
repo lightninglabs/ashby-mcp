@@ -101,3 +101,94 @@ func (c *Client) CreateCandidate(
 
 	return &resp.Results, nil
 }
+
+// UpdateCandidateOpts holds the optional fields that may be
+// updated on a candidate record.
+type UpdateCandidateOpts struct {
+	// Name is the candidate's full name.
+	Name string
+
+	// Email is the candidate's primary email address.
+	Email string
+
+	// PhoneNumber is the candidate's phone number.
+	PhoneNumber string
+
+	// LinkedInUrl is the candidate's LinkedIn profile URL.
+	LinkedInUrl string
+
+	// WebsiteUrl is the candidate's personal website URL.
+	WebsiteUrl string
+
+	// GithubUrl is the candidate's GitHub profile URL.
+	GithubUrl string
+
+	// TwitterHandle is the candidate's Twitter handle.
+	TwitterHandle string
+
+	// AlternativeEmailAddresses lists additional email
+	// addresses.
+	AlternativeEmailAddresses []string
+
+	// SourceID is the source ID to assign to the candidate.
+	SourceID string
+
+	// CreditedToUserId assigns sourcing credit to a user.
+	CreditedToUserId string
+}
+
+// UpdateCandidate updates mutable fields on an existing
+// candidate. Only fields with non-zero values are sent.
+func (c *Client) UpdateCandidate(
+	ctx context.Context, candidateID string,
+	opts UpdateCandidateOpts,
+) (*Candidate, error) {
+
+	params := map[string]any{
+		"candidateId": candidateID,
+	}
+
+	if opts.Name != "" {
+		params["name"] = opts.Name
+	}
+	if opts.Email != "" {
+		params["email"] = opts.Email
+	}
+	if opts.PhoneNumber != "" {
+		params["phoneNumber"] = opts.PhoneNumber
+	}
+	if opts.LinkedInUrl != "" {
+		params["linkedInUrl"] = opts.LinkedInUrl
+	}
+	if opts.WebsiteUrl != "" {
+		params["websiteUrl"] = opts.WebsiteUrl
+	}
+	if opts.GithubUrl != "" {
+		params["githubUrl"] = opts.GithubUrl
+	}
+	if opts.TwitterHandle != "" {
+		params["twitterHandle"] = opts.TwitterHandle
+	}
+	if len(opts.AlternativeEmailAddresses) > 0 {
+		params["alternativeEmailAddresses"] = opts.AlternativeEmailAddresses
+	}
+	if opts.SourceID != "" {
+		params["sourceId"] = opts.SourceID
+	}
+	if opts.CreditedToUserId != "" {
+		params["creditedToUserId"] = opts.CreditedToUserId
+	}
+
+	var resp struct {
+		Success bool      `json:"success"`
+		Results Candidate `json:"results"`
+	}
+
+	if err := c.Call(
+		ctx, "candidate.update", params, &resp,
+	); err != nil {
+		return nil, err
+	}
+
+	return &resp.Results, nil
+}
