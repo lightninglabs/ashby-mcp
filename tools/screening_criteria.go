@@ -214,15 +214,29 @@ type ScoreResult struct {
 // ScoreCandidate scores the given text against the Lightning
 // Labs screening criteria. The scoring formula is identical to
 // the Python implementation: min(matchCount/3, 1.0) * weight.
-func ScoreCandidate(text string) ScoreResult {
+// Extra criteria are merged with the built-in criteria before
+// scoring; they may override built-in categories if they share
+// the same key.
+func ScoreCandidate(text string, extra ...Criterion) ScoreResult {
 	textLower := strings.ToLower(text)
 
+	// Build the effective criteria map, starting with the
+	// hardcoded defaults.
+	effective := make(map[string]Criterion, len(criteria)+len(extra))
+	for k, v := range criteria {
+		effective[k] = v
+	}
+	for i, c := range extra {
+		key := fmt.Sprintf("custom_%d", i)
+		effective[key] = c
+	}
+
 	categories := make(
-		map[string]CategoryScore, len(criteria),
+		map[string]CategoryScore, len(effective),
 	)
 	var total, maxPossible float64
 
-	for key, crit := range criteria {
+	for key, crit := range effective {
 		var matched []string
 		for _, kw := range crit.Keywords {
 			// Keywords are already lowercase in the

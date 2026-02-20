@@ -32,6 +32,21 @@ type ScreenCandidatesInput struct {
 	// scoring accuracy. This is slower due to per-application
 	// API calls.
 	Enrich bool `json:"enrich,omitempty" jsonschema:"Fetch expanded details for better scoring (slower)"`
+
+	// ExtraKeywords adds a custom scoring category with the
+	// given keywords (weight 2.0). Useful for role-specific
+	// terms not in the default criteria, e.g. ["taproot
+	// assets", "embedded", "wasm"].
+	ExtraKeywords []string `json:"extraKeywords,omitempty" jsonschema:"Additional keywords to score candidates on (weight 2.0)"`
+
+	// ExtraKeywordsLabel is the display name for the custom
+	// keyword category in the score breakdown. Defaults to
+	// "Custom".
+	ExtraKeywordsLabel string `json:"extraKeywordsLabel,omitempty" jsonschema:"Display name for the custom keyword category (default: Custom)"`
+
+	// ExtraKeywordsWeight is the weight for the custom
+	// keyword category (default: 2.0).
+	ExtraKeywordsWeight float64 `json:"extraKeywordsWeight,omitempty" jsonschema:"Weight for the custom keyword category (default: 2.0)"`
 }
 
 // ScreenedCandidate holds the screening result for a single
@@ -210,7 +225,27 @@ func (h *Handler) ScreenCandidates(
 		}
 
 		text := ExtractText(appData)
-		score := ScoreCandidate(text)
+
+		// Build optional extra criteria from user-supplied
+		// keywords.
+		var extra []Criterion
+		if len(input.ExtraKeywords) > 0 {
+			label := input.ExtraKeywordsLabel
+			if label == "" {
+				label = "Custom"
+			}
+			weight := input.ExtraKeywordsWeight
+			if weight <= 0 {
+				weight = 2.0
+			}
+			extra = append(extra, Criterion{
+				Label:    label,
+				Weight:   weight,
+				Keywords: input.ExtraKeywords,
+			})
+		}
+
+		score := ScoreCandidate(text, extra...)
 		tier := ClassifyTier(score.Pct)
 
 		// Apply tier filter.
