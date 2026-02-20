@@ -24,6 +24,14 @@ type ListApplicationsInput struct {
 	// Cursor is an opaque pagination token from a previous
 	// response.
 	Cursor string `json:"cursor,omitempty" jsonschema:"Pagination cursor from a previous response"`
+
+	// CreatedAfter filters to applications created after
+	// this Unix epoch timestamp in milliseconds.
+	CreatedAfter int64 `json:"createdAfter,omitempty" jsonschema:"Filter to applications created after this Unix epoch ms timestamp"`
+
+	// UpdatedAfter filters to applications updated after
+	// this Unix epoch timestamp in milliseconds.
+	UpdatedAfter int64 `json:"updatedAfter,omitempty" jsonschema:"Filter to applications updated after this Unix epoch ms timestamp"`
 }
 
 // ListApplicationsOutput contains the list_applications
@@ -50,10 +58,12 @@ func (h *Handler) ListApplications(
 
 	result, err := h.client.ListApplications(
 		ctx, ashby.ListApplicationsOpts{
-			JobID:  input.JobID,
-			Status: input.Status,
-			Limit:  input.Limit,
-			Cursor: input.Cursor,
+			JobID:        input.JobID,
+			Status:       input.Status,
+			Limit:        input.Limit,
+			Cursor:       input.Cursor,
+			CreatedAfter: input.CreatedAfter,
+			UpdatedAfter: input.UpdatedAfter,
 		},
 	)
 	if err != nil {

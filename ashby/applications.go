@@ -19,6 +19,14 @@ type ListApplicationsOpts struct {
 	// Cursor is the pagination cursor for resuming from a
 	// prior page.
 	Cursor string
+
+	// CreatedAfter filters to applications created after this
+	// Unix epoch timestamp in milliseconds.
+	CreatedAfter int64
+
+	// UpdatedAfter filters to applications updated after this
+	// Unix epoch timestamp in milliseconds.
+	UpdatedAfter int64
 }
 
 // ListApplicationsResult holds a page of applications with
@@ -48,6 +56,12 @@ func (c *Client) ListApplications(
 	}
 	if opts.Status != "" {
 		params["status"] = opts.Status
+	}
+	if opts.CreatedAfter > 0 {
+		params["createdAfter"] = opts.CreatedAfter
+	}
+	if opts.UpdatedAfter > 0 {
+		params["updatedAfter"] = opts.UpdatedAfter
 	}
 
 	// If a cursor is provided, fetch a single page for the
