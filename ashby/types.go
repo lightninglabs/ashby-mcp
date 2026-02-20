@@ -158,6 +158,29 @@ type Candidate struct {
 	// Source describes how the candidate was sourced.
 	Source *Source `json:"source,omitempty"`
 
+	// ResumeFileHandle is the primary resume file reference.
+	ResumeFileHandle *FileHandle `json:"resumeFileHandle,omitempty"`
+
+	// FileHandles lists all files attached to this candidate
+	// (resumes, cover letters, portfolios, etc.).
+	FileHandles []FileHandle `json:"fileHandles,omitempty"`
+
+	// Position is the candidate's current job title.
+	Position string `json:"position,omitempty"`
+
+	// Company is the candidate's current employer.
+	Company string `json:"company,omitempty"`
+
+	// School is the candidate's current or most recent school.
+	School string `json:"school,omitempty"`
+
+	// ApplicationIds lists IDs of applications linked to this
+	// candidate.
+	ApplicationIds []string `json:"applicationIds,omitempty"`
+
+	// ProfileURL is the Ashby profile URL for this candidate.
+	ProfileURL string `json:"profileUrl,omitempty"`
+
 	// CreatedAt is the ISO 8601 creation timestamp.
 	CreatedAt string `json:"createdAt,omitempty"`
 
@@ -317,6 +340,10 @@ type FileHandle struct {
 
 	// Name is the filename.
 	Name string `json:"name"`
+
+	// Handle is the opaque token used with the file.info
+	// endpoint to retrieve a pre-signed download URL.
+	Handle string `json:"handle,omitempty"`
 }
 
 // HiringTeamMember represents a member of the hiring team.
