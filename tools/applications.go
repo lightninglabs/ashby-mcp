@@ -185,3 +185,39 @@ func (h *Handler) CreateApplication(
 		Application: app,
 	}, nil
 }
+
+// ChangeApplicationSourceInput defines the input parameters
+// for the change_application_source tool.
+type ChangeApplicationSourceInput struct {
+	// ApplicationID is the application to update.
+	ApplicationID string `json:"applicationId" jsonschema:"The Ashby application ID to update"`
+
+	// SourceID is the new source ID. Pass an empty string to
+	// clear the source.
+	SourceID string `json:"sourceId" jsonschema:"Source ID to assign, or empty string to unset"`
+}
+
+// ChangeApplicationSourceOutput confirms the source change.
+type ChangeApplicationSourceOutput struct {
+	// Success indicates whether the source change succeeded.
+	Success bool `json:"success"`
+}
+
+// ChangeApplicationSource handles the
+// change_application_source MCP tool call.
+func (h *Handler) ChangeApplicationSource(
+	ctx context.Context, req *mcp.CallToolRequest,
+	input ChangeApplicationSourceInput,
+) (*mcp.CallToolResult, ChangeApplicationSourceOutput, error) {
+
+	err := h.client.ChangeApplicationSource(
+		ctx, input.ApplicationID, input.SourceID,
+	)
+	if err != nil {
+		return nil, ChangeApplicationSourceOutput{}, err
+	}
+
+	return nil, ChangeApplicationSourceOutput{
+		Success: true,
+	}, nil
+}

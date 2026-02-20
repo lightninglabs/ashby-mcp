@@ -111,3 +111,83 @@ func (h *Handler) SearchJobs(
 		Total: len(jobs),
 	}, nil
 }
+
+// SetJobStatusInput defines the input parameters for the
+// set_job_status tool.
+type SetJobStatusInput struct {
+	// JobID is the Ashby job ID to update.
+	JobID string `json:"jobId" jsonschema:"The Ashby job ID"`
+
+	// Status is the new status: Open, Closed, or Archived.
+	Status string `json:"status" jsonschema:"New job status: Open Closed or Archived"`
+}
+
+// SetJobStatusOutput contains the updated job after the status
+// change.
+type SetJobStatusOutput struct {
+	// Job is the updated job record.
+	Job *ashby.Job `json:"job"`
+}
+
+// SetJobStatus handles the set_job_status MCP tool call.
+func (h *Handler) SetJobStatus(
+	ctx context.Context, req *mcp.CallToolRequest,
+	input SetJobStatusInput,
+) (*mcp.CallToolResult, SetJobStatusOutput, error) {
+
+	job, err := h.client.SetJobStatus(
+		ctx, input.JobID, input.Status,
+	)
+	if err != nil {
+		return nil, SetJobStatusOutput{}, err
+	}
+
+	return nil, SetJobStatusOutput{Job: job}, nil
+}
+
+// UpdateJobInput defines the input parameters for the
+// update_job tool.
+type UpdateJobInput struct {
+	// JobID is the Ashby job ID to update.
+	JobID string `json:"jobId" jsonschema:"The Ashby job ID"`
+
+	// Title is the updated job title.
+	Title string `json:"title,omitempty" jsonschema:"Updated job title"`
+
+	// DepartmentID is the updated department ID.
+	DepartmentID string `json:"departmentId,omitempty" jsonschema:"Updated department ID"`
+
+	// LocationIds is the updated list of location IDs.
+	LocationIds []string `json:"locationIds,omitempty" jsonschema:"Updated location IDs"`
+
+	// EmploymentType is the updated employment type
+	// (e.g. FullTime).
+	EmploymentType string `json:"employmentType,omitempty" jsonschema:"Updated employment type"`
+}
+
+// UpdateJobOutput contains the updated job record.
+type UpdateJobOutput struct {
+	// Job is the updated job record.
+	Job *ashby.Job `json:"job"`
+}
+
+// UpdateJob handles the update_job MCP tool call.
+func (h *Handler) UpdateJob(
+	ctx context.Context, req *mcp.CallToolRequest,
+	input UpdateJobInput,
+) (*mcp.CallToolResult, UpdateJobOutput, error) {
+
+	job, err := h.client.UpdateJob(
+		ctx, input.JobID, ashby.UpdateJobOpts{
+			Title:          input.Title,
+			DepartmentID:   input.DepartmentID,
+			LocationIds:    input.LocationIds,
+			EmploymentType: input.EmploymentType,
+		},
+	)
+	if err != nil {
+		return nil, UpdateJobOutput{}, err
+	}
+
+	return nil, UpdateJobOutput{Job: job}, nil
+}

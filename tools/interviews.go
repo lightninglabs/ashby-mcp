@@ -80,3 +80,67 @@ func (h *Handler) ListInterviews(
 		Total:      len(interviews),
 	}, nil
 }
+
+// ListInterviewPlansInput defines the input parameters for the
+// list_interview_plans tool (none required).
+type ListInterviewPlansInput struct{}
+
+// ListInterviewPlansOutput contains the list_interview_plans
+// results.
+type ListInterviewPlansOutput struct {
+	// Plans is the list of interview plans.
+	Plans []ashby.InterviewPlan `json:"plans"`
+
+	// Total is the number of interview plans returned.
+	Total int `json:"total"`
+}
+
+// ListInterviewPlans handles the list_interview_plans MCP tool
+// call.
+func (h *Handler) ListInterviewPlans(
+	ctx context.Context, req *mcp.CallToolRequest,
+	input ListInterviewPlansInput,
+) (*mcp.CallToolResult, ListInterviewPlansOutput, error) {
+
+	plans, err := h.client.ListInterviewPlans(ctx)
+	if err != nil {
+		return nil, ListInterviewPlansOutput{}, err
+	}
+
+	return nil, ListInterviewPlansOutput{
+		Plans: plans,
+		Total: len(plans),
+	}, nil
+}
+
+// GetInterviewStageInput defines the input parameters for the
+// get_interview_stage tool.
+type GetInterviewStageInput struct {
+	// InterviewStageID is the Ashby interview stage ID to
+	// look up.
+	InterviewStageID string `json:"interviewStageId" jsonschema:"The Ashby interview stage ID"`
+}
+
+// GetInterviewStageOutput contains the get_interview_stage
+// results.
+type GetInterviewStageOutput struct {
+	// Stage is the interview stage details.
+	Stage *ashby.InterviewStage `json:"stage"`
+}
+
+// GetInterviewStage handles the get_interview_stage MCP tool
+// call.
+func (h *Handler) GetInterviewStage(
+	ctx context.Context, req *mcp.CallToolRequest,
+	input GetInterviewStageInput,
+) (*mcp.CallToolResult, GetInterviewStageOutput, error) {
+
+	stage, err := h.client.GetInterviewStage(
+		ctx, input.InterviewStageID,
+	)
+	if err != nil {
+		return nil, GetInterviewStageOutput{}, err
+	}
+
+	return nil, GetInterviewStageOutput{Stage: stage}, nil
+}

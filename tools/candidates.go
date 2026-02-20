@@ -145,3 +145,74 @@ func (h *Handler) CreateCandidate(
 
 	return nil, CreateCandidateOutput{Candidate: cand}, nil
 }
+
+// UpdateCandidateInput defines the input parameters for the
+// update_candidate tool.
+type UpdateCandidateInput struct {
+	// CandidateID is the Ashby candidate ID to update.
+	CandidateID string `json:"candidateId" jsonschema:"The Ashby candidate ID"`
+
+	// Name is the updated full name.
+	Name string `json:"name,omitempty" jsonschema:"Updated full name"`
+
+	// Email is the updated primary email address.
+	Email string `json:"email,omitempty" jsonschema:"Updated email address"`
+
+	// PhoneNumber is the updated phone number.
+	PhoneNumber string `json:"phoneNumber,omitempty" jsonschema:"Updated phone number"`
+
+	// LinkedInUrl is the updated LinkedIn profile URL.
+	LinkedInUrl string `json:"linkedInUrl,omitempty" jsonschema:"LinkedIn profile URL"`
+
+	// WebsiteUrl is the updated personal website URL.
+	WebsiteUrl string `json:"websiteUrl,omitempty" jsonschema:"Personal website URL"`
+
+	// GithubUrl is the updated GitHub profile URL.
+	GithubUrl string `json:"githubUrl,omitempty" jsonschema:"GitHub profile URL"`
+
+	// TwitterHandle is the updated Twitter handle.
+	TwitterHandle string `json:"twitterHandle,omitempty" jsonschema:"Twitter handle"`
+
+	// AlternativeEmailAddresses lists additional email
+	// addresses.
+	AlternativeEmailAddresses []string `json:"alternativeEmailAddresses,omitempty" jsonschema:"Additional email addresses"`
+
+	// SourceID assigns the candidate to a source.
+	SourceID string `json:"sourceId,omitempty" jsonschema:"Source ID to assign"`
+
+	// CreditedToUserId assigns sourcing credit to a user.
+	CreditedToUserId string `json:"creditedToUserId,omitempty" jsonschema:"User ID to credit for sourcing"`
+}
+
+// UpdateCandidateOutput contains the updated candidate.
+type UpdateCandidateOutput struct {
+	// Candidate is the updated candidate record.
+	Candidate *ashby.Candidate `json:"candidate"`
+}
+
+// UpdateCandidate handles the update_candidate MCP tool call.
+func (h *Handler) UpdateCandidate(
+	ctx context.Context, req *mcp.CallToolRequest,
+	input UpdateCandidateInput,
+) (*mcp.CallToolResult, UpdateCandidateOutput, error) {
+
+	cand, err := h.client.UpdateCandidate(
+		ctx, input.CandidateID, ashby.UpdateCandidateOpts{
+			Name:                      input.Name,
+			Email:                     input.Email,
+			PhoneNumber:               input.PhoneNumber,
+			LinkedInUrl:               input.LinkedInUrl,
+			WebsiteUrl:                input.WebsiteUrl,
+			GithubUrl:                 input.GithubUrl,
+			TwitterHandle:             input.TwitterHandle,
+			AlternativeEmailAddresses: input.AlternativeEmailAddresses,
+			SourceID:                  input.SourceID,
+			CreditedToUserId:          input.CreditedToUserId,
+		},
+	)
+	if err != nil {
+		return nil, UpdateCandidateOutput{}, err
+	}
+
+	return nil, UpdateCandidateOutput{Candidate: cand}, nil
+}

@@ -45,6 +45,21 @@ func RegisterAll(s *mcp.Server, h *Handler) {
 		Annotations: readOnly,
 	}, h.SearchJobs)
 
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "set_job_status",
+		Description: "Set the status of an Ashby job " +
+			"(Open, Closed, or Archived).",
+		Annotations: writeIdempotent,
+	}, h.SetJobStatus)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "update_job",
+		Description: "Update mutable fields on an Ashby " +
+			"job: title, departmentId, locationIds, " +
+			"employmentType.",
+		Annotations: writeIdempotent,
+	}, h.UpdateJob)
+
 	// =============================================================
 	// Application tools.
 	// =============================================================
@@ -71,6 +86,14 @@ func RegisterAll(s *mcp.Server, h *Handler) {
 			"different interview stage.",
 		Annotations: writeIdempotent,
 	}, h.ChangeApplicationStage)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "change_application_source",
+		Description: "Set or clear the source on an Ashby " +
+			"application. Pass an empty sourceId to " +
+			"unset the source.",
+		Annotations: writeNonIdempotent,
+	}, h.ChangeApplicationSource)
 
 	mcp.AddTool(s, &mcp.Tool{
 		Name: "create_application",
@@ -111,6 +134,17 @@ func RegisterAll(s *mcp.Server, h *Handler) {
 		Annotations: writeNonIdempotent,
 	}, h.CreateCandidate)
 
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "update_candidate",
+		Description: "Update mutable fields on an " +
+			"existing Ashby candidate: name, email, " +
+			"phoneNumber, linkedInUrl, websiteUrl, " +
+			"githubUrl, twitterHandle, " +
+			"alternativeEmailAddresses, sourceId, " +
+			"creditedToUserId.",
+		Annotations: writeIdempotent,
+	}, h.UpdateCandidate)
+
 	// =============================================================
 	// Tag tools.
 	// =============================================================
@@ -143,6 +177,116 @@ func RegisterAll(s *mcp.Server, h *Handler) {
 		Description: "List notes for an Ashby candidate.",
 		Annotations: readOnly,
 	}, h.ListCandidateNotes)
+
+	// =============================================================
+	// User tools.
+	// =============================================================
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "list_users",
+		Description: "List Ashby team members, optionally " +
+			"filtered by name.",
+		Annotations: readOnly,
+	}, h.ListUsers)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "search_users",
+		Description: "Search Ashby users by name or " +
+			"email.",
+		Annotations: readOnly,
+	}, h.SearchUsers)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name:        "get_user",
+		Description: "Get details for an Ashby user by ID.",
+		Annotations: readOnly,
+	}, h.GetUser)
+
+	// =============================================================
+	// Lookup list tools.
+	// =============================================================
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name:        "list_sources",
+		Description: "List all Ashby application sources.",
+		Annotations: readOnly,
+	}, h.ListSources)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "list_archive_reasons",
+		Description: "List all Ashby application archive " +
+			"reasons.",
+		Annotations: readOnly,
+	}, h.ListArchiveReasons)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name:        "list_departments",
+		Description: "List all Ashby departments.",
+		Annotations: readOnly,
+	}, h.ListDepartments)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name:        "list_locations",
+		Description: "List all Ashby locations.",
+		Annotations: readOnly,
+	}, h.ListLocations)
+
+	// =============================================================
+	// Job posting tools.
+	// =============================================================
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "list_job_postings",
+		Description: "List all Ashby public job postings.",
+		Annotations: readOnly,
+	}, h.ListJobPostings)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "get_job_posting",
+		Description: "Get details for a specific Ashby " +
+			"job posting by ID.",
+		Annotations: readOnly,
+	}, h.GetJobPosting)
+
+	// =============================================================
+	// Opening tools.
+	// =============================================================
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "list_openings",
+		Description: "List all Ashby headcount openings.",
+		Annotations: readOnly,
+	}, h.ListOpenings)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "get_opening",
+		Description: "Get details for a specific Ashby " +
+			"opening by ID.",
+		Annotations: readOnly,
+	}, h.GetOpening)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "search_openings",
+		Description: "Search Ashby openings by keyword.",
+		Annotations: readOnly,
+	}, h.SearchOpenings)
+
+	// =============================================================
+	// Interview plan tools.
+	// =============================================================
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "list_interview_plans",
+		Description: "List all Ashby interview plans.",
+		Annotations: readOnly,
+	}, h.ListInterviewPlans)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "get_interview_stage",
+		Description: "Get details for a specific Ashby " +
+			"interview stage by ID.",
+		Annotations: readOnly,
+	}, h.GetInterviewStage)
 
 	// =============================================================
 	// Interview tools.
