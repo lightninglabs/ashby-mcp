@@ -320,6 +320,17 @@ func RegisterAll(s *mcp.Server, h *Handler) {
 		Annotations: readOnly,
 	}, h.GetFileURL)
 
+	mcp.AddTool(s, &mcp.Tool{
+		Name: "get_candidate_resume",
+		Description: "Search for a candidate by email " +
+			"or name, fetch their resume PDF, and " +
+			"extract the plain text content. At " +
+			"least one of email or name must be " +
+			"provided. Returns the candidate name, " +
+			"filename, and full text of the resume.",
+		Annotations: readOnly,
+	}, h.GetCandidateResume)
+
 	// =============================================================
 	// Analytics & screening tools.
 	// =============================================================
