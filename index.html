@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employer Branding Playbook | How Top AI Companies Market to Engineers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a28;
+      --border: #1e1e2e;
+      --text: #e4e4ef;
+      --text-muted: #8888a0;
+      --accent-modal: #22c55e;
+      --accent-modal-dim: rgba(34,197,94,0.12);
+      --accent-profound: #7c3aed;
+      --accent-profound-dim: rgba(124,58,237,0.12);
+      --accent-gold: #f59e0b;
+      --gradient-modal: linear-gradient(135deg, #22c55e, #10b981);
+      --gradient-profound: linear-gradient(135deg, #7c3aed, #a855f7);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 50%, rgba(124,58,237,0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 50%, rgba(34,197,94,0.08) 0%, transparent 50%);
+      animation: heroPulse 8s ease-in-out infinite alternate;
+    }
+    @keyframes heroPulse {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.1) rotate(3deg); }
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-block;
+      padding: 0.4rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #fff 0%, #a0a0c0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+    .hero-companies {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-company {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: all 0.3s;
+    }
+    .hero-company:hover { background: var(--bg-card-hover); transform: translateY(-2px); }
+    .hero-company .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .hero-company .dot.modal { background: var(--accent-modal); box-shadow: 0 0 12px rgba(34,197,94,0.4); }
+    .hero-company .dot.profound { background: var(--accent-profound); box-shadow: 0 0 12px rgba(124,58,237,0.4); }
+
+    /* ── Section Headers ── */
+    .section-header {
+      text-align: center;
+      padding: 6rem 0 3rem;
+    }
+    .section-header .label {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .section-header .label.modal { background: var(--accent-modal-dim); color: var(--accent-modal); }
+    .section-header .label.profound { background: var(--accent-profound-dim); color: var(--accent-profound); }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .section-header p { color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.05rem; }
+
+    /* ── Stats Row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .stat-card .value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+    .stat-card .value.modal { color: var(--accent-modal); }
+    .stat-card .value.profound { color: var(--accent-profound); }
+    .stat-card .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── Tactic Cards ── */
+    .tactics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .tactic-card {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .tactic-card:hover { border-color: #2a2a40; transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+    .tactic-card .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+    .tactic-card .card-body { padding: 1.5rem; }
+    .tactic-card .card-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      margin-bottom: 0.75rem;
+    }
+    .tactic-card .card-tag.modal { background: var(--accent-modal-dim); color: var(--accent-modal); }
+    .tactic-card .card-tag.profound { background: var(--accent-profound-dim); color: var(--accent-profound); }
+    .tactic-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .tactic-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+    .tactic-card .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .tactic-card .card-link.modal { color: var(--accent-modal); }
+    .tactic-card .card-link.profound { color: var(--accent-profound); }
+    .tactic-card .card-link:hover { gap: 0.7rem; }
+
+    /* ── Screenshot Embed ── */
+    .screenshot-embed {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      background: var(--bg-card);
+      transition: all 0.3s;
+    }
+    .screenshot-embed:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+    .screenshot-embed .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: #1a1a28;
+      border-bottom: 1px solid var(--border);
+    }
+    .browser-bar .dots { display: flex; gap: 6px; }
+    .browser-bar .dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-bar .dots span:nth-child(1) { background: #ff5f57; }
+    .browser-bar .dots span:nth-child(2) { background: #febc2e; }
+    .browser-bar .dots span:nth-child(3) { background: #28c840; }
+    .browser-bar .url-bar {
+      flex: 1;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: 'Inter', monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .screenshot-embed .embed-content {
+      padding: 2rem;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .screenshot-embed img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ── Full Width Feature ── */
+    .feature-wide {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin: 2rem 0 3rem;
+      background: var(--bg-card);
+    }
+    .feature-wide .fw-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .feature-wide .fw-content { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+    .feature-wide .fw-visual {
+      position: relative;
+      min-height: 350px;
+      overflow: hidden;
+    }
+    .feature-wide .fw-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Why It Works ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0 4rem;
+    }
+    .why-card {
+      padding: 1.75rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .why-card .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .why-card .icon.modal { background: var(--accent-modal-dim); }
+    .why-card .icon.profound { background: var(--accent-profound-dim); }
+    .why-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .why-card p { color: var(--text-muted); font-size: 0.88rem; }
+
+    /* ── Takeaways ── */
+    .takeaways {
+      padding: 5rem 0;
+      position: relative;
+    }
+    .takeaways::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.06) 0%, transparent 70%);
+    }
+    .takeaways-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .takeaways-header .label {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(245,158,11,0.12);
+      color: var(--accent-gold);
+      margin-bottom: 1.5rem;
+    }
+    .takeaways-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+    }
+    .takeaway-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      position: relative;
+    }
+    .takeaway-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      align-items: flex-start;
+      transition: all 0.3s;
+    }
+    .takeaway-item:hover { border-color: rgba(245,158,11,0.3); transform: translateY(-2px); }
+    .takeaway-item .num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(245,158,11,0.12);
+      color: var(--accent-gold);
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .takeaway-item h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .takeaway-item p { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* ── Dividers ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 2rem 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .feature-wide .fw-inner { grid-template-columns: 1fr; }
+      .tactics-grid { grid-template-columns: 1fr; }
+      .hero-companies { flex-direction: column; align-items: center; }
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #2a2a3a; border-radius: 4px; }
+
+    /* ── Link cards grid for external resources ── */
+    .link-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+    .link-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .link-card:hover { border-color: #2a2a40; transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+    .link-card .lc-preview {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .link-card .lc-body { padding: 1.25rem; }
+    .link-card .lc-source { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+    .link-card .lc-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .link-card .lc-desc { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ── Embed Previews with color-themed backgrounds ── */
+    .preview-modal {
+      background: linear-gradient(135deg, #0a1a0f 0%, #0f1f18 50%, #0a150f 100%);
+      border-bottom: 1px solid rgba(34,197,94,0.2);
+    }
+    .preview-profound {
+      background: linear-gradient(135deg, #120a1f 0%, #1a0f2e 50%, #150a20 100%);
+      border-bottom: 1px solid rgba(124,58,237,0.2);
+    }
+    .preview-text {
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .preview-text .site-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+    .preview-text .site-name.modal { color: var(--accent-modal); }
+    .preview-text .site-name.profound { color: var(--accent-profound); }
+    .preview-text .site-tagline { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── Billboard image section ── */
+    .billboard-section {
+      margin: 3rem 0;
+    }
+    .billboard-section img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .billboard-caption {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Quote block ── */
+    .quote-block {
+      border-left: 3px solid;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 12px 12px 0;
+      background: rgba(255,255,255,0.02);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .quote-block.modal { border-color: var(--accent-modal); }
+    .quote-block.profound { border-color: var(--accent-profound); }
+
+    /* ── Comparison table ── */
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    @media (max-width: 768px) { .comparison-row { grid-template-columns: 1fr; } }
+    .comparison-col h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid;
+    }
+    .comparison-col h3.modal { border-color: var(--accent-modal); }
+    .comparison-col h3.profound { border-color: var(--accent-profound); }
+    .comparison-col ul { list-style: none; }
+    .comparison-col ul li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+    .comparison-col ul li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 0.5rem;
+    }
+    .comparison-col.modal ul li::before { background: var(--accent-modal); }
+    .comparison-col.profound ul li::before { background: var(--accent-profound); }
+
+    /* ── Tactic Definitions ── */
+    .tactic-defs {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 2rem 0 3rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .tactic-def {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .tactic-def:last-child { border-bottom: none; }
+    .tactic-def:hover { background: var(--bg-card-hover); }
+    .tactic-def .td-label {
+      padding: 1.5rem;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-right: 1px solid var(--border);
+    }
+    .tactic-def .td-label .td-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+    .tactic-def .td-label .td-num.modal { background: var(--accent-modal-dim); color: var(--accent-modal); }
+    .tactic-def .td-label .td-num.profound { background: var(--accent-profound-dim); color: var(--accent-profound); }
+    .tactic-def .td-label h4 { font-size: 0.88rem; font-weight: 700; line-height: 1.3; }
+    .tactic-def .td-desc {
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .tactic-def { grid-template-columns: 1fr; }
+      .tactic-def .td-label { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    /* ── Homepage embed ── */
+    .homepage-embed {
+      margin: 2rem 0 3rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .homepage-embed:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+    .homepage-embed a { text-decoration: none; color: inherit; display: block; }
+    .homepage-embed .hp-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: #1a1a28;
+      border-bottom: 1px solid var(--border);
+    }
+    .homepage-embed .hp-content {
+      padding: 2.5rem;
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .homepage-embed .hp-text { flex: 1; }
+    .homepage-embed .hp-text .hp-tagline {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .homepage-embed .hp-text .hp-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .homepage-embed .hp-logos {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .homepage-embed .hp-logos span {
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .homepage-embed .hp-visual {
+      flex-shrink: 0;
+      width: 300px;
+      height: 200px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    @media (max-width: 768px) {
+      .homepage-embed .hp-content { flex-direction: column; }
+      .homepage-embed .hp-visual { width: 100%; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">Employer Branding Research</span>
+    <h1>How Top AI Companies<br>Market to Engineers</h1>
+    <p>A deep dive into how the fastest-growing AI infrastructure companies build employer brands that attract world-class engineering talent.</p>
+    <div class="hero-companies">
+      <div class="hero-company">
+        <span class="dot modal"></span>
+        <span><strong>Modal Labs</strong> &mdash; $1.1B Valuation</span>
+      </div>
+      <div class="hero-company">
+        <span class="dot profound"></span>
+        <span><strong>Profound</strong> &mdash; $1B Valuation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- ═══════════════ MODAL LABS ═══════════════ -->
+<section>
+  <div class="section-header">
+    <span class="label modal">Case Study 01</span>
+    <h2>Modal Labs</h2>
+    <p>Modal makes it trivially easy to run code on GPUs in the cloud. Their employer brand emerged organically from relentless technical credibility, founder visibility, and a culture that attracts competitive, intellectually driven engineers.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="value modal">$1.1B+</div>
+      <div class="label">Valuation</div>
+    </div>
+    <div class="stat-card">
+      <div class="value modal">1000s</div>
+      <div class="label">Customers</div>
+    </div>
+    <div class="stat-card">
+      <div class="value modal">~118</div>
+      <div class="label">Employees</div>
+    </div>
+    <div class="stat-card">
+      <div class="value modal">$111M</div>
+      <div class="label">Total Raised</div>
+    </div>
+    <div class="stat-card">
+      <div class="value modal">2021</div>
+      <div class="label">Founded</div>
+    </div>
+  </div>
+
+  <!-- Modal Homepage -->
+  <div class="homepage-embed">
+    <a href="https://modal.com" target="_blank">
+      <div class="hp-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url-bar">modal.com</div>
+      </div>
+      <div class="hp-content" style="background:linear-gradient(135deg,#0a0f0a,#0f1a12);">
+        <div class="hp-text">
+          <div class="hp-tagline" style="color:var(--accent-modal);">AI infrastructure that developers love</div>
+          <div class="hp-sub">Run inference, training, and batch processing with sub-second cold starts, instant autoscaling, and a developer experience that feels local. Everything defined in code &mdash; no YAML, no Docker, no Kubernetes.</div>
+          <div class="hp-logos">
+            <span style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:var(--accent-modal);">Scale AI</span>
+            <span style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:var(--accent-modal);">Quora</span>
+            <span style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:var(--accent-modal);">Ramp</span>
+            <span style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:var(--accent-modal);">Harvey AI</span>
+            <span style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:var(--accent-modal);">Mistral</span>
+          </div>
+        </div>
+        <div class="hp-visual" style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);">
+          <div style="font-family:monospace;font-size:0.8rem;color:var(--accent-modal);text-align:left;line-height:1.8;">
+            <div><span style="color:#888;">@</span>app.function(<span style="color:#f59e0b;">gpu=</span><span style="color:#22c55e;">"H100"</span>)</div>
+            <div><span style="color:#888;">def</span> <span style="color:#fff;">train</span>():</div>
+            <div>&nbsp;&nbsp;<span style="color:#888;"># runs on Modal cloud</span></div>
+            <div>&nbsp;&nbsp;<span style="color:#fff;">model</span>.fit(data)</div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Founder-Led Content -->
+  <div class="feature-wide">
+    <div class="fw-inner">
+      <div class="fw-content">
+        <span class="label modal" style="margin-bottom:1rem">Tactic: Founder-Led Content</span>
+        <h3 style="font-size:1.5rem;margin-bottom:1rem;">CEO Erik Bernhardsson: 50K+ Followers on X</h3>
+        <p style="color:var(--text-muted);margin-bottom:1.5rem;">The CEO has appeared on 6 major podcasts including <strong>No Priors</strong>, <strong>Gradient Dissent</strong>, <strong>The MAD Podcast</strong>, <strong>Barrchives</strong>, <strong>The Right Track</strong>, and <strong>The Cube</strong>. This personal brand creates a magnetic pull for senior engineers who want to work alongside a technically credible leader.</p>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="https://x.com/bernhardsson" target="_blank" class="card-link modal" style="text-decoration:none;padding:0.4rem 1rem;border-radius:8px;background:var(--accent-modal-dim);font-size:0.8rem;">@bernhardsson on X &rarr;</a>
+          <a href="https://www.youtube.com/watch?v=j-kMDPAtQUc" target="_blank" class="card-link modal" style="text-decoration:none;padding:0.4rem 1rem;border-radius:8px;background:var(--accent-modal-dim);font-size:0.8rem;">The MAD Podcast &rarr;</a>
+          <a href="https://www.youtube.com/watch?v=QNetRxjIqBM" target="_blank" class="card-link modal" style="text-decoration:none;padding:0.4rem 1rem;border-radius:8px;background:var(--accent-modal-dim);font-size:0.8rem;">Barrchives &rarr;</a>
+          <a href="https://www.youtube.com/watch?v=3l79JrRrcG4" target="_blank" class="card-link modal" style="text-decoration:none;padding:0.4rem 1rem;border-radius:8px;background:var(--accent-modal-dim);font-size:0.8rem;">The Right Track &rarr;</a>
+        </div>
+      </div>
+      <div class="fw-visual" style="background:linear-gradient(135deg,#0a1a0f,#0f2818);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:2rem;">
+        <div style="font-size:3.5rem;margin-bottom:1rem;">&#127908;</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--accent-modal);margin-bottom:0.3rem;">6 Major Podcasts</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);text-align:center;">No Priors &bull; Gradient Dissent &bull; MAD Podcast<br>Barrchives &bull; The Right Track &bull; The Cube</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Blog -->
+  <div class="screenshot-embed">
+    <div class="browser-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url-bar">modal.com/blog</div>
+    </div>
+    <div class="embed-content" style="background:linear-gradient(135deg,#0a0f0a,#0f1a12);padding:2.5rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;">
+        <div style="padding:1.25rem;border-radius:12px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);">
+          <div style="font-size:0.68rem;color:var(--accent-modal);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Engineering</div>
+          <div style="font-size:0.9rem;font-weight:600;margin-bottom:0.3rem;">Keeping 20,000 GPUs Healthy</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">Deep-dive into GPU fleet operations at scale</div>
+        </div>
+        <div style="padding:1.25rem;border-radius:12px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);">
+          <div style="font-size:0.68rem;color:var(--accent-modal);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Engineering</div>
+          <div style="font-size:0.9rem;font-weight:600;margin-bottom:0.3rem;">Reverse Engineering Flash Attention 4</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">Custom Rust runtime architecture analysis</div>
+        </div>
+        <div style="padding:1.25rem;border-radius:12px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);">
+          <div style="font-size:0.68rem;color:var(--accent-modal);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Engineering</div>
+          <div style="font-size:0.9rem;font-weight:600;margin-bottom:0.3rem;">Host Overhead Is Killing Your Inference</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">Efficiency optimization for GPU workloads</div>
+        </div>
+        <div style="padding:1.25rem;border-radius:12px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);">
+          <div style="font-size:0.68rem;color:var(--accent-modal);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Customer Story</div>
+          <div style="font-size:0.9rem;font-weight:600;margin-bottom:0.3rem;">Reducto: 3x Latency Reduction</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">Document processing at enterprise scale</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="https://modal.com/blog" target="_blank" style="color:var(--accent-modal);text-decoration:none;font-size:0.85rem;font-weight:600;">Visit Modal Engineering Blog &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;margin-bottom:3rem;">The engineering blog publishes infrastructure deep-dives (custom Rust runtime, filesystem architecture, GPU fleet ops). These attract senior engineers who care about <em>how</em> things are built, not just <em>what</em>.</p>
+
+  <!-- Modal Tactics Defined -->
+  <h3 style="text-align:center;font-size:1.3rem;margin:3rem 0 1.5rem;">Modal's 5 Core Tactics</h3>
+  <div class="tactic-defs">
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num modal">1</span>
+        <h4>Founder Visibility</h4>
+      </div>
+      <div class="td-desc">A public founder narrative that makes the company's technical ambition legible in a human voice. CEO Erik Bernhardsson has 50K+ followers on X and has appeared on 6 major podcasts.</div>
+    </div>
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num modal">2</span>
+        <h4>Technical Content + Open Source</h4>
+      </div>
+      <div class="td-desc">Useful public artifacts that teach the market how the product is built, not just what it does. 76 public repos, GPU Glossary as standalone reference, and deep engineering blog posts.</div>
+    </div>
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num modal">3</span>
+        <h4>Community + Events</h4>
+      </div>
+      <div class="td-desc">IRL formats that place the brand in the rooms where ambitious builders already gather. Demo nights with Mistral, Cafe Compute, founder dinners, and office hours.</div>
+    </div>
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num modal">4</span>
+        <h4>Customer Proof + Startup Flywheel</h4>
+      </div>
+      <div class="td-desc">Customer stories used as recruiting proof, not just sales collateral. Published case studies with Lovable, Ramp, Scale AI. 250K+ apps deployed in a single weekend creates "this is real" proof.</div>
+    </div>
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num modal">5</span>
+        <h4>Brand Moments + Identity Signaling</h4>
+      </div>
+      <div class="td-desc">Memorable moments that make a technical company feel culturally alive and distinct. SF billboard campaign, "5 IOI gold medals on a 7-person team," and the viral "Why You Should Join Modal" essay.</div>
+    </div>
+  </div>
+
+  <!-- Evidence Links -->
+  <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem;">
+    <a href="https://x.com/bernhardsson" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-modal-dim);color:var(--accent-modal);font-size:0.8rem;font-weight:600;border:1px solid rgba(34,197,94,0.2);">@bernhardsson on X &rarr;</a>
+    <a href="https://modal.com/blog/open-source-gpu-glossary" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-modal-dim);color:var(--accent-modal);font-size:0.8rem;font-weight:600;border:1px solid rgba(34,197,94,0.2);">GPU Glossary &rarr;</a>
+    <a href="https://modal.com/customers" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-modal-dim);color:var(--accent-modal);font-size:0.8rem;font-weight:600;border:1px solid rgba(34,197,94,0.2);">Customer Stories &rarr;</a>
+    <a href="https://luma.com/cafecomputenyc26" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-modal-dim);color:var(--accent-modal);font-size:0.8rem;font-weight:600;border:1px solid rgba(34,197,94,0.2);">Cafe Compute NYC &rarr;</a>
+    <a href="https://whyyoushouldjoin.substack.com/p/modal" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-modal-dim);color:var(--accent-modal);font-size:0.8rem;font-weight:600;border:1px solid rgba(34,197,94,0.2);">Why You Should Join &rarr;</a>
+  </div>
+
+  <!-- Billboard Section -->
+  <div class="billboard-section">
+    <div class="screenshot-embed">
+      <div class="browser-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url-bar">Modal Billboard Campaign &mdash; San Francisco</div>
+      </div>
+      <div style="background:#000;padding:1rem;">
+        <img src="assets/modal-billboard.webp" alt="Modal Labs billboard campaign in San Francisco" style="width:100%;border-radius:8px;">
+      </div>
+    </div>
+    <p class="billboard-caption"><strong>Physical Brand Stunt:</strong> Billboard campaign in SF with gamified social components &mdash; find the billboard, tweet it, win a prize. Low-cost, high-memorability that had engineers talking about it online for weeks.</p>
+  </div>
+
+  <!-- Why It Works for Modal -->
+  <h3 style="text-align:center;font-size:1.3rem;margin:3rem 0 1rem;">Why This Lands with Engineers</h3>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="icon modal">&#128218;</div>
+      <h4>It Teaches, Not Promotes</h4>
+      <p>Modal publishes material useful even to non-customers, making the brand feel technically credible rather than sales-driven.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon modal">&#9989;</div>
+      <h4>Evidence of Real Usage</h4>
+      <p>Case studies, customer quotes, and milestone posts make the company feel like a real part of the AI stack, not an unknown startup.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon modal">&#127760;</div>
+      <h4>Shows Up in the Right Rooms</h4>
+      <p>Events at GTC, infra mixers, HQ meetups, and public talks put the company in front of the people it wants to hire.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon modal">&#128640;</div>
+      <h4>Signals Ambition</h4>
+      <p>Billboards, refreshed visual identity, visible founders, and DevRel investment suggest a company that intends to be seen.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ PROFOUND ═══════════════ -->
+<section>
+  <div class="section-header">
+    <span class="label profound">Case Study 02</span>
+    <h2>Profound</h2>
+    <p>The marketing platform for the AI era. Profound helps enterprise brands understand and optimize how they appear inside AI answer engines like ChatGPT, Perplexity, and Gemini. Reached unicorn status in just 18 months.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="value profound">$1B</div>
+      <div class="label">Valuation (Series C)</div>
+    </div>
+    <div class="stat-card">
+      <div class="value profound">$155M</div>
+      <div class="label">Total Raised</div>
+    </div>
+    <div class="stat-card">
+      <div class="value profound">~120</div>
+      <div class="label">Employees</div>
+    </div>
+    <div class="stat-card">
+      <div class="value profound">700+</div>
+      <div class="label">Enterprise Customers</div>
+    </div>
+    <div class="stat-card">
+      <div class="value profound">18 mo</div>
+      <div class="label">Seed to Series C</div>
+    </div>
+  </div>
+
+  <!-- Profound Homepage -->
+  <div class="homepage-embed">
+    <a href="https://www.tryprofound.com" target="_blank">
+      <div class="hp-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url-bar">tryprofound.com</div>
+      </div>
+      <div class="hp-content" style="background:linear-gradient(135deg,#0f0a18,#1a0f2e);">
+        <div class="hp-text">
+          <div class="hp-tagline" style="color:var(--accent-profound);">Marketing agents to win in AI</div>
+          <div class="hp-sub">Reach millions of consumers using AI to discover new products and brands. Scale your presence across ChatGPT, Perplexity, Claude, Gemini, Grok, and more &mdash; without scaling your workload.</div>
+          <div class="hp-logos">
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--accent-profound);">ChatGPT</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--accent-profound);">Perplexity</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--accent-profound);">Claude</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--accent-profound);">Gemini</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--accent-profound);">Grok</span>
+          </div>
+        </div>
+        <div class="hp-visual" style="background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.15);">
+          <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Platform Features</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;width:100%;padding:0 1rem;">
+            <div style="padding:0.4rem 0.75rem;border-radius:6px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.15);font-size:0.78rem;color:var(--text);">Prompt Volume Tracking</div>
+            <div style="padding:0.4rem 0.75rem;border-radius:6px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.15);font-size:0.78rem;color:var(--text);">Answer Engine Insights</div>
+            <div style="padding:0.4rem 0.75rem;border-radius:6px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.15);font-size:0.78rem;color:var(--text);">Marketing Agents</div>
+            <div style="padding:0.4rem 0.75rem;border-radius:6px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.15);font-size:0.78rem;color:var(--text);">Analytics Dashboard</div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Category Creation -->
+  <div class="feature-wide">
+    <div class="fw-inner">
+      <div class="fw-content">
+        <span class="label profound" style="margin-bottom:1rem">Tactic: Category Creation</span>
+        <h3 style="font-size:1.5rem;margin-bottom:1rem;">CEO Creates "Answer Engine Optimization"</h3>
+        <p style="color:var(--text-muted);margin-bottom:1.5rem;">Profound didn't enter "SEO tools" &mdash; they <strong>created</strong> a new category. Every piece of content, event, and partnership reinforces the "Answer Engine Optimization" framing. CEO James Cadwallader drives this narrative on every podcast and post.</p>
+        <a href="https://www.tryprofound.com/blog/aeo-vs-geo" target="_blank" style="color:var(--accent-profound);text-decoration:none;font-size:0.85rem;font-weight:600;">AEO vs GEO: Read the Manifesto &rarr;</a>
+      </div>
+      <div class="fw-visual" style="background:linear-gradient(135deg,#120a1f,#1f0f3a);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:2rem;">
+        <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;">Reframing the Narrative</div>
+        <div style="position:relative;text-align:center;">
+          <div style="font-size:1.2rem;color:#666;text-decoration:line-through;margin-bottom:0.5rem;">SEO Tools</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.5rem;">&#8595;</div>
+          <div style="font-size:1.8rem;font-weight:900;color:var(--accent-profound);">Answer Engine<br>Optimization</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Original Research -->
+  <div class="screenshot-embed">
+    <div class="browser-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url-bar">tryprofound.com/research</div>
+    </div>
+    <div class="embed-content" style="background:linear-gradient(135deg,#0f0a18,#1a0f2e);padding:2.5rem;">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <div style="font-size:0.7rem;color:var(--accent-profound);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;">Original Research Portal</div>
+        <div style="font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;">Data-Driven Brand Authority</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+        <div style="text-align:center;padding:1.25rem;border-radius:12px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);">
+          <div style="font-size:2rem;font-weight:900;color:var(--accent-profound);">700K</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;">Conversations<br>Analyzed</div>
+        </div>
+        <div style="text-align:center;padding:1.25rem;border-radius:12px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);">
+          <div style="font-size:2rem;font-weight:900;color:var(--accent-profound);">26M</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;">Prompts<br>Studied</div>
+        </div>
+        <div style="text-align:center;padding:1.25rem;border-radius:12px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);">
+          <div style="font-size:2rem;font-weight:900;color:var(--accent-profound);">27M</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;">Citations<br>Tracked</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="https://www.tryprofound.com/research" target="_blank" style="color:var(--accent-profound);text-decoration:none;font-size:0.85rem;font-weight:600;">Explore All Research &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;margin-bottom:3rem;">Publishes studies using their own product data. Research gets cited by LinkedIn's marketing team and industry press. Creates a flywheel: data proves product value while generating brand awareness.</p>
+
+  <!-- Profound Tactics Defined -->
+  <h3 style="text-align:center;font-size:1.3rem;margin:3rem 0 1.5rem;">Profound's 5 Core Tactics</h3>
+  <div class="tactic-defs">
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num profound">1</span>
+        <h4>Category Creation + Founder Narrative</h4>
+      </div>
+      <div class="td-desc">Repeatedly framing a new market so the company becomes synonymous with it. CEO James Cadwallader coined "Answer Engine Optimization" and drives it on every podcast, post, and partnership.</div>
+    </div>
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num profound">2</span>
+        <h4>Original Research + Product Data</h4>
+      </div>
+      <div class="td-desc">Publishing proprietary analysis that doubles as thought leadership and technical proof. 700K conversations analyzed, 26M prompts studied, 27M citations tracked &mdash; research gets cited by LinkedIn's own marketing team.</div>
+    </div>
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num profound">3</span>
+        <h4>Launches + Fundraising as Brand Moments</h4>
+      </div>
+      <div class="td-desc">Treating every milestone as a coordinated visibility event across channels. $96M raise became a Fortune exclusive, Nasdaq MarketSite celebration, Sequoia blog post, and social blitz &mdash; all at once.</div>
+    </div>
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num profound">4</span>
+        <h4>Partnerships + Ecosystem Building</h4>
+      </div>
+      <div class="td-desc">Using integrations, certifications, docs, and programs to expand the company's surface area. G2, Partnerize, Gamma, Nostra, Parallel AI, Notified, Avenue Z &mdash; each one a co-branded moment with blog, LinkedIn, and press.</div>
+    </div>
+    <div class="tactic-def">
+      <div class="td-label">
+        <span class="td-num profound">5</span>
+        <h4>Events + Distributed Team Visibility</h4>
+      </div>
+      <div class="td-desc">Making the broader team public through events, speaking, and operator content &mdash; not just the CEO. Zero Click conference, AI Engineer Happy Hours, Nick Lafferty at SXSW, CTO Dylan Babbs on LinkedIn.</div>
+    </div>
+  </div>
+
+  <!-- Evidence Links -->
+  <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem;">
+    <a href="https://www.tryprofound.com/zeroclick/sf" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-profound-dim);color:var(--accent-profound);font-size:0.8rem;font-weight:600;border:1px solid rgba(124,58,237,0.2);">Zero Click SF &rarr;</a>
+    <a href="https://fortune.com/2026/02/24/exclusive-as-ai-threatens-search-profound-raises-96-million-to-help-brands-stay-visible/" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-profound-dim);color:var(--accent-profound);font-size:0.8rem;font-weight:600;border:1px solid rgba(124,58,237,0.2);">Fortune Exclusive &rarr;</a>
+    <a href="https://sequoiacap.com/article/partnering-with-profound-winning-on-the-ai-stage/" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-profound-dim);color:var(--accent-profound);font-size:0.8rem;font-weight:600;border:1px solid rgba(124,58,237,0.2);">Sequoia Blog &rarr;</a>
+    <a href="https://partnerize.com/resources/blog/from-getting-seen-to-getting-paid-partnerize-profound-join-forces-to-address-ai-attribution-gaps" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-profound-dim);color:var(--accent-profound);font-size:0.8rem;font-weight:600;border:1px solid rgba(124,58,237,0.2);">Partnerize &rarr;</a>
+    <a href="https://schedule.sxsw.com/2026/contributors/2270125" target="_blank" style="text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:var(--accent-profound-dim);color:var(--accent-profound);font-size:0.8rem;font-weight:600;border:1px solid rgba(124,58,237,0.2);">SXSW Speaker &rarr;</a>
+  </div>
+
+  <!-- Why It Works for Profound -->
+  <h3 style="text-align:center;font-size:1.3rem;margin:3rem 0 1rem;">Why This Lands with Engineers</h3>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="icon profound">&#128202;</div>
+      <h4>Original Data Research</h4>
+      <p>Analyzing 700K ChatGPT conversations and running controlled experiments signals the team is solving genuinely hard problems.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon profound">&#128176;</div>
+      <h4>Social Proof from Every Angle</h4>
+      <p>Customer case studies, funding announcements, partner posts, and conference programming all reinforce the company is active and credible.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon profound">&#9889;</div>
+      <h4>Shipping Velocity</h4>
+      <p>3-5 product updates per month with real features going out the door. Engineers read that as "this team actually builds and ships fast."</p>
+    </div>
+    <div class="why-card">
+      <div class="icon profound">&#127775;</div>
+      <h4>Domain Authority via Events</h4>
+      <p>Hosting 300 people from Fortune 100 companies signals that serious organizations trust their thinking &mdash; not just marketing fluff.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ KEY TAKEAWAYS ═══════════════ -->
+<section class="takeaways">
+  <div class="container">
+    <div class="takeaways-header">
+      <span class="label">Key Takeaways</span>
+      <h2>The Playbook for Your Brand</h2>
+    </div>
+
+    <div class="takeaway-list">
+      <div class="takeaway-item">
+        <div class="num">1</div>
+        <div>
+          <h4>Update Careers Website & Page</h4>
+          <p>The easiest quick win. Your careers page is the first thing candidates check &mdash; make it reflect your ambition.</p>
+        </div>
+      </div>
+      <div class="takeaway-item">
+        <div class="num">2</div>
+        <div>
+          <h4>Lead with the Founder</h4>
+          <p>Founder visibility creates magnetic pull. Both Modal and Profound's CEOs are the face of their brands on podcasts and social.</p>
+        </div>
+      </div>
+      <div class="takeaway-item">
+        <div class="num">3</div>
+        <div>
+          <h4>Use Fundraising as a Brand Moment</h4>
+          <p>Every milestone &mdash; fundraise, partnership, launch &mdash; should be a coordinated, multi-channel brand event.</p>
+        </div>
+      </div>
+      <div class="takeaway-item">
+        <div class="num">4</div>
+        <div>
+          <h4>Publish the Hard, Interesting Work</h4>
+          <p>Technical deep-dives and original research prove your engineers solve real problems, attracting like-minded talent.</p>
+        </div>
+      </div>
+      <div class="takeaway-item">
+        <div class="num">5</div>
+        <div>
+          <h4>Build Community with Curated Events</h4>
+          <p>Demo nights, conferences, happy hours &mdash; create face-to-face touchpoints that make cold outreach feel warm.</p>
+        </div>
+      </div>
+      <div class="takeaway-item">
+        <div class="num">6</div>
+        <div>
+          <h4>Use Partnerships & Customer Proof</h4>
+          <p>Every partnership and customer story is a brand moment. Volume creates ambient awareness that compounds over time.</p>
+        </div>
+      </div>
+      <div class="takeaway-item">
+        <div class="num">7</div>
+        <div>
+          <h4>Reframe the Narrative</h4>
+          <p>Don't compete in existing categories. Create your own framing &mdash; like "Answer Engine Optimization" &mdash; and own the conversation.</p>
+        </div>
+      </div>
+      <div class="takeaway-item">
+        <div class="num">8</div>
+        <div>
+          <h4>Get the Team Posting, Not Just the Company</h4>
+          <p>When the whole team is publicly visible, candidates see who they'd work with. Distributed content > centralized marketing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p>Employer Branding Research &mdash; Prepared for Lightning Labs Clients</p>
+</footer>
+
+</body>
+</html>
